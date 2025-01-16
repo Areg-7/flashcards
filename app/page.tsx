@@ -2,7 +2,6 @@
 // pages/index.tsx
 import { useState, useEffect } from "react";
 import Flashcard from "@/components/Flashcard";
-import { flashcardsDataTed } from "@/data/flashcards";
 import { flashcardsDataAlex } from "@/data/flashcards";
 
 const IndexPage = () => {

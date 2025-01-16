@@ -2,7 +2,8 @@
 // pages/index.tsx
 import { useState, useEffect } from "react";
 import Flashcard from "@/components/Flashcard";
-import { flashcardsData } from "@/data/flashcards"; // Your flashcard data
+import { flashcardsDataTed } from "@/data/flashcards";
+import { flashcardsDataAlex } from "@/data/flashcards";
 
 const IndexPage = () => {
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
@@ -43,7 +44,7 @@ const IndexPage = () => {
 
       {/* Flashcards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {flashcardsData.map((card, index) => (
+        {flashcardsDataAlex.map((card, index) => (
           <Flashcard
             key={index}
             word={card.word}

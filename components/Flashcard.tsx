@@ -38,22 +38,23 @@ const Flashcard: React.FC<FlashcardProps> = ({ word, translation, selectedVoice 
       >
         {/* Front Side */}
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-blue-500 text-white font-bold text-xl rounded-lg shadow-lg backface-hidden">
-          <p>{word}</p>
+          <p>{translation}</p>
+        </div>
+        {/* Back Side */}
+        <div className="absolute inset-0 flex items-center justify-center bg-green-500 text-white font-bold text-xl rounded-lg shadow-lg backface-hidden rotate-y-180">
+          {word}
+          
           {/* Speaker Icon */}
           <button
             onClick={(e) => {
               e.stopPropagation(); // Prevent card flipping
               playAudio(word);
             }}
-            className="mt-2 text-white text-2xl"
+            className="ml-5 text-white text-2xl"
             aria-label={`Play pronunciation of ${word}`}
           >
             <FaVolumeUp />
           </button>
-        </div>
-        {/* Back Side */}
-        <div className="absolute inset-0 flex items-center justify-center bg-green-500 text-white font-bold text-xl rounded-lg shadow-lg backface-hidden rotate-y-180">
-          {translation}
         </div>
       </div>
     </div>

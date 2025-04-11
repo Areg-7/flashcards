@@ -1,12 +1,12 @@
-"use client"
-// pages/index.tsx
+"use client";
 import { useState, useEffect } from "react";
 import Flashcard from "@/components/Flashcard";
-import { flashcardsDataAlex } from "@/data/flashcards";
+import { flashcardCases } from "@/data/flashcards";
 
 const IndexPage = () => {
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoice | null>(null);
+  const [activeCase, setActiveCase] = useState<string>("TPO 1"); // Default to TPO 1
 
   useEffect(() => {
     const fetchVoices = () => {
@@ -24,8 +24,24 @@ const IndexPage = () => {
 
   return (
     <div className="flex flex-col items-center p-4">
-      <h1 className="p-4"><a href="">dklbhe27qmvi142k</a></h1>
-      {/* Voice Selector Dropdown */}
+      <h1 className="text-2xl font-bold mb-4">📚 Flashcard Cases</h1>
+
+      {/* Case Switcher */}
+      <div className="flex space-x-4 mb-6">
+        {Object.keys(flashcardCases).map((caseId) => (
+          <button
+            key={caseId}
+            onClick={() => setActiveCase(caseId)}
+            className={`px-4 py-2 rounded ${
+              activeCase === caseId ? "bg-blue-600 text-white" : "bg-gray-300 text-black"
+            }`}
+          >
+            {caseId}
+          </button>
+        ))}
+      </div>
+
+      {/* Voice Selector */}
       <select
         className="p-2 mb-4 bg-white text-black rounded"
         value={selectedVoice?.name || ""}
@@ -44,14 +60,19 @@ const IndexPage = () => {
 
       {/* Flashcards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {flashcardsDataAlex.map((card, index) => (
-          <Flashcard
-            key={index}
-            word={card.word}
-            translation={card.translation}
-            selectedVoice={selectedVoice} // Pass the selected voice as prop
-          />
-        ))}
+        {/* Check if flashcardCases[activeCase] exists */}
+        {flashcardCases[activeCase] ? (
+          flashcardCases[activeCase].map((card, index) => (
+            <Flashcard
+              key={index}
+              word={card.word}
+              translation={card.translation}
+              selectedVoice={selectedVoice}
+            />
+          ))
+        ) : (
+          <p>No flashcards available for this case.</p> // Fallback message if no flashcards exist
+        )}
       </div>
     </div>
   );
